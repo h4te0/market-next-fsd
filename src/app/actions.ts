@@ -119,13 +119,17 @@ export const registerUserAction = async (body: Prisma.UserCreateInput) => {
       },
     });
 
-    if (user) {
-      if (!user.verified) {
-        throw new Error('Почта не подтверждена');
-      }
+    if (user) throw new Error('Пользователь уже существует');
 
-      throw new Error('Пользователь уже существует');
-    }
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+    await sendEmail(
+      body.email,
+      'Подтверждение регистрации',
+      UserVerificationTemplate({
+        code,
+      }),
+    );
 
     const createdUser = await prisma.user.create({
       data: {
@@ -135,22 +139,12 @@ export const registerUserAction = async (body: Prisma.UserCreateInput) => {
       },
     });
 
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
-
     await prisma.verificationCode.create({
       data: {
         code,
         userId: createdUser.id,
       },
     });
-
-    await sendEmail(
-      createdUser.email,
-      'Подтверждение регистрации',
-      UserVerificationTemplate({
-        code,
-      }),
-    );
   } catch (error) {
     console.error('Error [CREATE_USER]', error);
     throw error;

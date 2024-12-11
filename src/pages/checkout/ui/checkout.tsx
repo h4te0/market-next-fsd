@@ -50,8 +50,10 @@ export const Checkout = ({ user }: Props) => {
   if (!data?.cart?.length) {
     router.push(paths.cart);
     toast.error('У вас нет товаров в корзине');
-    return null;
+    return;
   }
+
+  if (typeof window === 'undefined') return;
 
   return (
     <Container classname="pt-3">

@@ -24,9 +24,10 @@ interface Props {
 export const ProductsPagination = (props: Props) => {
   const { totalPages, hasNextPage, hasPrevPage, classname } = props;
 
+  const searchParams = useSearchParams();
+
   if (totalPages <= 1) return null;
 
-  const searchParams = useSearchParams();
   const page = searchParams?.get('page') || 1;
   const currentPage = Math.min(Math.max(Number(page), 1), totalPages);
   const query = new URLSearchParams(searchParams?.toString());

@@ -7,7 +7,7 @@ interface Props {
   slug: string | undefined;
   take: number;
   skip: number;
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }
 
 export const getProductsCatalog = async ({ slug, take = 8, skip = 0, searchParams }: Props) => {

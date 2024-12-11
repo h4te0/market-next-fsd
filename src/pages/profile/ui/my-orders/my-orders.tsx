@@ -14,15 +14,13 @@ import { Title } from '@/shared/ui/title';
 
 import type { ICartItemWithProduct } from '@/entities/cart';
 
-interface Props {}
-
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 };
 
-export const MyOrders = ({}: Props) => {
+export const MyOrders = () => {
   const { data: orders, isLoading } = useOrders();
 
   return (

@@ -15,19 +15,7 @@ type SliderProps = {
 };
 
 const RangeSlider = React.forwardRef(
-  (
-    {
-      className,
-      step,
-      formatLabel,
-      value,
-      onValueChange,
-      minTotal,
-      maxTotal,
-      ...props
-    }: SliderProps,
-    ref,
-  ) => {
+  ({ className, step, value, onValueChange, minTotal, maxTotal, ...props }: SliderProps, ref) => {
     const [min, setMin] = React.useState<number>(value[0]);
     const [max, setMax] = React.useState<number>(value[1]);
 

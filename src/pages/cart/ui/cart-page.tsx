@@ -27,7 +27,8 @@ export const CartPage = () => {
   const isPending = updatePending || deletePending || deleteManyPending || isFetching;
 
   useEffect(() => {
-    isPending ? nProgress.start() : nProgress.done();
+    if (isPending) nProgress.start();
+    else nProgress.done();
   }, [isPending]);
 
   const handleSelectAll = (cartItemIds: number[]) => (checked: boolean) => {

@@ -66,15 +66,6 @@ export async function POST(req: NextRequest) {
 
     const currentUser = await getCurrentUser();
 
-    // const user =
-    //   session &&
-    //   (await prisma.user.findFirst({
-    //     where: {
-    //       email: session?.user?.email || undefined,
-    //     },
-    //     include: { cart: true },
-    //   }));
-
     if (currentUser?.cartToken) {
       cartToken = currentUser?.cartToken;
       req.cookies.set('cartToken', currentUser?.cartToken);
@@ -83,8 +74,6 @@ export async function POST(req: NextRequest) {
     if (!cartToken) {
       cartToken = crypto.randomUUID();
     }
-
-    // const userCart = await findOrCreateCart(cartToken);
 
     const data = (await req.json()) as Cart;
 

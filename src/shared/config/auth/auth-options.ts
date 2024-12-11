@@ -62,7 +62,7 @@ export const authOptions: AuthOptions = {
           cookieStore.set('cartToken', cartToken);
         }
 
-        findUser.cartToken && cookieStore.set('cartToken', findUser.cartToken);
+        if (findUser.cartToken) cookieStore.set('cartToken', findUser.cartToken);
 
         await prisma.user.update({
           where: {
@@ -120,7 +120,7 @@ export const authOptions: AuthOptions = {
           cookieStore.set('cartToken', cartToken);
         }
 
-        findUser?.cartToken && cookieStore.set('cartToken', findUser.cartToken);
+        if (findUser?.cartToken) cookieStore.set('cartToken', findUser.cartToken);
 
         if (findUser) {
           await prisma.user.update({

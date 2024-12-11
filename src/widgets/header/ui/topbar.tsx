@@ -3,7 +3,6 @@ import { MapPin, Phone } from 'lucide-react';
 
 import { cn } from '@/shared/lib/tailwind-merge';
 
-import { Button } from '@/shared/ui/button';
 import { Container } from '@/shared/ui/container';
 
 import { paths } from '@/shared/config/paths';

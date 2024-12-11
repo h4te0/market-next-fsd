@@ -26,7 +26,7 @@ interface Props {
   };
   actions?: {
     updateCount: UseMutateFunction<
-      AxiosResponse<any, any>,
+      AxiosResponse<unknown, unknown>,
       Error,
       {
         id: number;
@@ -34,7 +34,7 @@ interface Props {
       },
       unknown
     >;
-    deleteFromCart: UseMutateFunction<AxiosResponse<any, any>, Error, number, unknown>;
+    deleteFromCart: UseMutateFunction<AxiosResponse<unknown, unknown>, Error, number, unknown>;
   };
 }
 

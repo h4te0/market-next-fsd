@@ -13,15 +13,13 @@ import { paths } from '@/shared/config/paths';
 
 import type { ICartItemWithProduct } from '@/entities/cart';
 
-interface Props {}
-
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 };
 
-export const MyOrdersBlock = ({}: Props) => {
+export const MyOrdersBlock = () => {
   const { data: orders, isLoading } = useOrders();
 
   return (

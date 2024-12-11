@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 
     const items = JSON.parse(order.items as string) as ICartItemWithProduct[];
 
-    isSucceeded &&
+    if (isSucceeded)
       sendEmail(
         order.email,
         'Ваш заказ успешно оформлен!',

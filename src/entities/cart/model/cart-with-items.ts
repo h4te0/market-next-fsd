@@ -1,4 +1,3 @@
-import type { Cart } from '@prisma/client';
 import { ICartItemWithProduct } from './cart-item-with-product';
 
 export interface ICartWithItems {

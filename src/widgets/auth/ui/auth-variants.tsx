@@ -2,9 +2,7 @@ import { signIn } from 'next-auth/react';
 
 import { Button } from '@/shared/ui/button';
 
-interface Props {}
-
-export const AuthVariants = ({}: Props) => {
+export const AuthVariants = () => {
   return (
     <div className="flex gap-2">
       <Button

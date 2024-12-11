@@ -2,9 +2,9 @@ import { prisma } from '@/shared/api/prisma-client';
 // import { updateCartTotalAmount } from '@/shared/helpers/update-cart-total-amount';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = await params;
+    const id = (await params).id;
     const data = (await req.json()) as { quantity: number };
     const cartToken = req.cookies.get('cartToken')?.value;
 
@@ -38,9 +38,9 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = await params;
+    const id = (await params).id;
 
     const cartToken = req.cookies.get('cartToken')?.value;
 

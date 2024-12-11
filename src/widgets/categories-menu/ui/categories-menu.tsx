@@ -27,7 +27,7 @@ export const CategoriesMenu = ({ onClose }: Props) => {
   useOutsideClick(dropdownRef, onClose);
 
   useEffect(() => {
-    categories && setCurrentCategory(categories[0]);
+    if (categories) setCurrentCategory(categories[0]);
   }, [isLoading]);
 
   return (

@@ -10,8 +10,8 @@ import { Breadcrumbs } from '@/widgets/breadcrumbs';
 import { notFound } from 'next/navigation';
 
 interface Props {
-  params: { slug: string[] };
-  searchParams: { [key: string]: string | undefined };
+  params: Promise<{ slug: string[] }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }
 
 export const CatalogPage = async ({ params, searchParams }: Props) => {

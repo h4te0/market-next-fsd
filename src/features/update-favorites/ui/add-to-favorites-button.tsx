@@ -19,7 +19,7 @@ export const AddToFavoritesButton = ({ id, isInFavorites }: Props) => {
   };
 
   useEffect(() => {
-    isSuccess && setActive(!active);
+    if (isSuccess) setActive(!active);
   }, [isSuccess]);
 
   if (active)

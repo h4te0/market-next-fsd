@@ -42,6 +42,7 @@ export const Stories = ({ className }: Props) => {
               className="object-cover rounded-full aspect-square"
               height={70}
               width={70}
+              alt="story"
               src={story.previewImageUrl}
             />
           </div>

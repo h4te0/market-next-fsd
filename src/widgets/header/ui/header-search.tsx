@@ -3,9 +3,7 @@
 import { Search } from 'lucide-react';
 import { Input } from '@/shared/ui/input';
 
-interface Props {}
-
-export const HeaderSearch = ({}: Props) => {
+export const HeaderSearch = () => {
   return (
     <div className="relative flex items-center w-full mr-5">
       <Input placeholder="Поиск" className="py-3 px-4 text-base bg-background" />

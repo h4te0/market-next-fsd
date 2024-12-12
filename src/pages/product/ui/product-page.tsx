@@ -77,7 +77,7 @@ export const ProductPage = async ({ product }: Props) => {
         <div className="bg-white p-6 rounded-lg w-full h-fit">
           <div className="flex justify-between items-center">
             <p className="text-sm font-medium">Артикул: {product?.article}</p>
-            <AddToFavoritesButton id={product.id} isInFavorites={!!product.favorites.length} />
+            <AddToFavoritesButton id={product.id} isInFavorites={!!product?.favorites?.length} />
           </div>
           <hr className="my-4 " />
           <p className="text-3xl text-primary font-bold">{product?.price.toLocaleString('ru')} ₸</p>

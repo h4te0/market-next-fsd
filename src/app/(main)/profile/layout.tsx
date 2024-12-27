@@ -1,18 +1,19 @@
 import type { PropsWithChildren } from 'react';
 
-import { getServerSession } from 'next-auth';
+import { getCurrentUser } from '@/entities/user';
 
 import { NotAuth, ProfileBreadcrumbs, ProfileNavMenu } from '@/pages/profile';
 import { Container } from '@/shared/ui/container';
 
 const ProfileLayout = async ({ children }: PropsWithChildren) => {
-  const session = await getServerSession();
+  const user = await getCurrentUser();
+
   return (
     <Container>
-      <ProfileBreadcrumbs />
-      <div className="grid grid-cols-[296px,1fr] gap-4">
-        <ProfileNavMenu session={session} />
-        {!session ? <NotAuth /> : children}
+      <ProfileBreadcrumbs className="tablet:hidden" />
+      <div className="grid grid-cols-[296px,1fr] gap-4 tablet:block">
+        <ProfileNavMenu user={user} className="tablet:hidden" />
+        {!user ? <NotAuth /> : children}
       </div>
     </Container>
   );

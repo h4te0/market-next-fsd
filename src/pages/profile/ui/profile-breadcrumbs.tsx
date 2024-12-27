@@ -4,6 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { cn } from '@/shared/lib/tailwind-merge';
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,11 +16,15 @@ import {
 import { paths } from '@/shared/config/paths';
 import { profileNavigation } from '../config/profile-navigation';
 
-export const ProfileBreadcrumbs = () => {
+interface Props {
+  className?: string;
+}
+
+export const ProfileBreadcrumbs = ({ className }: Props) => {
   const pathname = usePathname();
 
   return (
-    <Breadcrumb className="mb-4">
+    <Breadcrumb className={cn('mb-4', className)}>
       <BreadcrumbList>
         <BreadcrumbItem>
           <Link href={paths.home}>Главная</Link>

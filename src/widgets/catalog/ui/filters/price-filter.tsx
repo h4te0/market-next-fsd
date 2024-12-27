@@ -4,7 +4,7 @@ import { Input } from '@/shared/ui/input';
 import { Title } from '@/shared/ui/title';
 import { RangeSlider } from '@/shared/ui/range-slider';
 
-import type { IPrices } from '../model/types';
+import type { IPrices } from '../../model/types';
 
 interface Props {
   classname?: string;
@@ -30,7 +30,6 @@ export const PriceFilter = ({ prices, setPrices, maxPrice, minPrice }: Props) =>
             <Input
               placeholder="От"
               type="number"
-              // pattern="[0-9]+([\.][0-9]{1,2})?"
               min={minPrice}
               max={maxPrice}
               value={prices.min || minPrice}
@@ -40,7 +39,6 @@ export const PriceFilter = ({ prices, setPrices, maxPrice, minPrice }: Props) =>
             <Input
               placeholder="До"
               type="number"
-              // pattern="[0-9]+([\.][0-9]{1,2})?"
               min={minPrice}
               max={maxPrice}
               value={prices.max || maxPrice}

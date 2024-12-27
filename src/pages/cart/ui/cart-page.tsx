@@ -54,8 +54,8 @@ export const CartPage = () => {
       <Title size="lg" className="mb-4">
         Корзина
       </Title>
-      <div className="flex justify-between">
-        <div className="bg-white rounded-lg p-4 w-full max-w-[816px] h-fit mb-4">
+      <div className="flex justify-between laptop:flex-col">
+        <div className="bg-white rounded-lg p-4 w-full max-w-[816px] laptop:max-w-full h-fit mb-4">
           <div className="flex justify-between pb-4 border-b">
             <SelectAllCheckbox
               cartItemIds={[...data.cart.map((item) => item.id)]}

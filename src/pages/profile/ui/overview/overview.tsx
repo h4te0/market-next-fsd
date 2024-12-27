@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { MyOrdersBlock } from './my-orders/my-orders-block';
-import { UserEditForm } from '@/features/update-user';
+import { LogoutButton, UserEditForm } from '@/features/update-user';
 import { UserInfoBlock } from './user-info/user-info-block';
 import { Favorites } from '../favorites/favorites';
 
@@ -19,12 +19,15 @@ export const Overview = ({ user }: Props) => {
   if (isEdit) return <UserEditForm data={user} onEditClose={() => setIsEdit(false)} />;
 
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <UserInfoBlock user={user} onEditOpen={() => setIsEdit(true)} />
+    <div className="grid grid-cols-2 gap-4 laptop:grid-cols-1 tablet:grid-cols-2">
+      <UserInfoBlock
+        user={user}
+        onEditOpen={() => setIsEdit(true)}
+        className="tablet:col-span-full"
+      />
       <MyOrdersBlock />
-      <div className="col-span-full">
-        <Favorites isOverview={true} />
-      </div>
+      <Favorites isOverview={true} className="col-span-full tablet:col-span-1" />
+      <LogoutButton user={user} className="hidden tablet:flex col-span-full px-4" />
     </div>
   );
 };

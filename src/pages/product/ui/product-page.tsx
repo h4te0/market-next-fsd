@@ -6,6 +6,7 @@ import { AddToCartButton } from '@/features/update-cart';
 import { AddToFavoritesButton } from '@/features/update-favorites';
 import { getCurrentUser } from '@/entities/user';
 
+import { ProductDescription } from './product-description';
 import { Breadcrumbs } from '@/widgets/breadcrumbs';
 import { ProductImageGallery } from './product-image-gallery';
 import { ProductsBlock } from '@/widgets/products-block';
@@ -16,7 +17,13 @@ import type { IProductWithCartAndFav } from '@/entities/product';
 
 interface Props {
   product?:
-    | (IProductWithCartAndFav & { categories: { id: number; title: string; slug: string }[] })
+    | (IProductWithCartAndFav & {
+        categories: {
+          id: number;
+          title: string;
+          slug: string;
+        }[];
+      })
     | null;
 }
 
@@ -63,18 +70,15 @@ export const ProductPage = async ({ product }: Props) => {
   return (
     <Container>
       <Breadcrumbs slug={product.categories.at(-1)?.slug} lastTitle={product.title} />
-      <div className="flex gap-4">
-        <div className="bg-white p-6 rounded-lg max-w-[856px]">
+      <div className="flex gap-4 laptop:flex-col">
+        <div className="bg-white p-6 rounded-lg ">
           <Title>{product?.title}</Title>
-          <div className="mt-6 flex gap-12">
+          <div className="mt-6 grid grid-cols-2 gap-12 tablet:grid-cols-1">
             <ProductImageGallery product={product} />
-            <div className="w-[696px]">
-              <h3 className="font-bold text-xl mb-2">Описание</h3>
-              <p className="text-sm text-gray-500">{product?.description}</p>
-            </div>
+            <ProductDescription description={product?.description} />
           </div>
         </div>
-        <div className="bg-white p-6 rounded-lg w-full h-fit">
+        <div className="bg-white p-6 rounded-lg min-w-[360px] h-fit phone:min-w-full">
           <div className="flex justify-between items-center">
             <p className="text-sm font-medium">Артикул: {product?.article}</p>
             <AddToFavoritesButton id={product.id} isInFavorites={!!product?.favorites?.length} />

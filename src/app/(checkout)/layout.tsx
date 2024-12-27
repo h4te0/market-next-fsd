@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const CheckoutLayout = ({ children }: PropsWithChildren<unknown>) => {
   return (
     <main>
-      <Topbar hasLogo={true} className="flex items-center h-[72px] w-full" />
+      <Topbar hasLogo={true} className="flex items-center h-[72px] w-full tablet:flex" />
       {children}
     </main>
   );

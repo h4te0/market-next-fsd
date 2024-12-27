@@ -11,7 +11,7 @@ interface Props {
   placeholder?: string;
 }
 
-export const AddressInput = ({ onChange, defaultValue, placeholder }: Props) => {
+const AddressInput = ({ onChange, defaultValue, placeholder }: Props) => {
   const [address, setAddress] = useState<string | undefined>();
   return (
     <AddressSuggestions
@@ -23,7 +23,7 @@ export const AddressInput = ({ onChange, defaultValue, placeholder }: Props) => 
       inputProps={{
         className:
           'flex w-full rounded-md border border-input outline-none px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-primary focus-visible:ring-ring focus-visible:ring-offset-2 hover:border-primary duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50',
-        // defaultValue,
+
         placeholder,
         onChange: (e) => {
           onChange?.(address === e.currentTarget.value ? address : '');
@@ -39,3 +39,5 @@ export const AddressInput = ({ onChange, defaultValue, placeholder }: Props) => 
     />
   );
 };
+
+export default AddressInput;

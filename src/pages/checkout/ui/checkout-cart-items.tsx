@@ -17,7 +17,7 @@ export const CheckoutCartItems = ({ cart, isLoading }: Props) => {
     <CheckoutBlock
       title="1. Товары готовые к оформлению"
       endAdornment={
-        <Link href={paths.cart} className="text-secondary">
+        <Link href={paths.cart} className="text-secondary tablet:text-sm">
           Вернуться в корзину
         </Link>
       }>

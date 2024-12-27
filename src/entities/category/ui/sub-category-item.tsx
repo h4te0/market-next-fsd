@@ -5,13 +5,7 @@ import { paths } from '@/shared/config/paths';
 import type { ICategoriesWithChildren } from '../model/categories-with-children';
 
 interface Props {
-  categoryChildren: ICategoriesWithChildren & {
-    brand: {
-      id: number;
-      slug: string;
-      title: string;
-    };
-  };
+  categoryChildren: ICategoriesWithChildren;
   currentCategory: ICategoriesWithChildren;
   subCategory: ICategoriesWithChildren;
   onClose: () => void;

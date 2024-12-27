@@ -1,12 +1,19 @@
 'use client';
 
 import { Search } from 'lucide-react';
+
 import { Input } from '@/shared/ui/input';
 
-export const HeaderSearch = () => {
+import { cn } from '@/shared/lib/tailwind-merge';
+
+interface Props {
+  className?: string;
+}
+
+export const HeaderSearch = ({ className }: Props) => {
   return (
-    <div className="relative flex items-center w-full mr-5">
-      <Input placeholder="Поиск" className="py-3 px-4 text-base bg-background" />
+    <div className={cn('relative flex items-center w-full mr-5', className)}>
+      <Input placeholder="Поиск" className="py-3 px-4 text-base bg-background tablet:h-10" />
       <Search width={20} color="#8E979F" className="absolute right-3 cursor-pointer" />
     </div>
   );

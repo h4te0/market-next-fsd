@@ -22,7 +22,7 @@ export const CheckoutBlock = ({
     <div className={cn('py-8 px-10 bg-white rounded-2xl', classname)}>
       {title && (
         <div className="flex justify-between items-center mb-8">
-          <Title>{title}</Title>
+          <Title className="tablet:text-base">{title}</Title>
           {endAdornment}
         </div>
       )}

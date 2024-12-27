@@ -36,7 +36,7 @@ export const PasswordEditForm = ({ isOpen, onClose, type }: Props) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[450px] bg-white p-10 rounded-3xl">
+      <DialogContent className="w-[450px] tablet:w-full h-full bg-white p-10 rounded-3xl">
         <Form {...form}>
           <form className="flex flex-col gap-6 w-full" onSubmit={form.handleSubmit(onSubmit)}>
             <DialogTitle className="text-xl font-bold">

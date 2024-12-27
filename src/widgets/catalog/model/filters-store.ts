@@ -7,10 +7,12 @@ export interface FiltersStore {
   prices: IPrices;
   delivery?: boolean;
   brands: string[];
+  sorting?: string;
   setPage: (page?: string) => void;
   setPrices: ({}: IPrices) => void;
   setDelivery: (value?: boolean) => void;
   setBrands: (brands: string[]) => void;
+  setSorting: (sorting?: string) => void;
 }
 
 export const useFiltersStore = create<FiltersStore>()((set) => ({
@@ -21,7 +23,7 @@ export const useFiltersStore = create<FiltersStore>()((set) => ({
   },
   delivery: undefined,
   brands: [],
-
+  sorting: undefined,
   setPage: (page) =>
     set(() => ({
       page: page,
@@ -37,5 +39,9 @@ export const useFiltersStore = create<FiltersStore>()((set) => ({
   setDelivery: (value) =>
     set(() => ({
       delivery: value,
+    })),
+  setSorting: (sorting) =>
+    set(() => ({
+      sorting: sorting,
     })),
 }));

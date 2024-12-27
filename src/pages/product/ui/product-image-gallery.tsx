@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import ReactImageGallery, { type ReactImageGalleryItem } from 'react-image-gallery';
 
 import type { IProductWithCartAndFav } from '@/entities/product';
@@ -12,16 +13,25 @@ interface Props {
 
 export const ProductImageGallery = ({ product }: Props) => {
   if (!product) return;
+
+  const [windowWidth, setWindowWidth] = useState<number>(1920);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') setWindowWidth(window.innerWidth);
+  }, []);
+
   const images: ReactImageGalleryItem[] = product?.images.map((image) => ({
     original: image,
     thumbnail: image,
   }));
 
   return (
-    <div>
+    <div className="min-h-[396px]">
       <ReactImageGallery
         items={images}
-        thumbnailPosition="left"
+        showThumbnails={windowWidth > 768}
+        showBullets={windowWidth < 768}
+        thumbnailPosition={windowWidth > 768 ? 'left' : 'bottom'}
         showPlayButton={false}
         showFullscreenButton={false}
         showNav={false}

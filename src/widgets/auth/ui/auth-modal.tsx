@@ -25,14 +25,16 @@ export const AuthModal = ({ isOpen, onClose }: Props) => {
   };
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="w-[450px] bg-white p-10 rounded-3xl">
-        {type === 'login' ? (
-          <LoginForm onClose={handleClose} />
-        ) : (
-          <RegisterForm onClose={handleClose} />
-        )}
-        <AuthVariants />
-        <AuthSwitch type={type} onSwitchType={onSwitchType} />
+      <DialogContent className="w-[450px] bg-white p-10 rounded-3xl tablet:h-full tablet:w-full tablet:rounded-none tablet:max-w-full">
+        <div className="max-w-[450px] tablet:max-w-full">
+          {type === 'login' ? (
+            <LoginForm onClose={handleClose} />
+          ) : (
+            <RegisterForm onClose={handleClose} />
+          )}
+          <AuthVariants />
+          <AuthSwitch type={type} onSwitchType={onSwitchType} />
+        </div>
       </DialogContent>
     </Dialog>
   );

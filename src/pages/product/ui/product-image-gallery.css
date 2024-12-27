@@ -209,10 +209,9 @@
 }
 .image-gallery-bullets .image-gallery-bullet {
   appearance: none;
-  background-color: transparent;
+  background-color: #d9dcde;
   border: 1px solid #fff;
   border-radius: 50%;
-  box-shadow: 0 2px 2px #1a1a1a;
   cursor: pointer;
   display: inline-block;
   margin: 0 5px;
@@ -239,7 +238,7 @@
 .image-gallery-bullets .image-gallery-bullet.active {
   transform: scale(1.2);
   border: 1px solid #fff;
-  background: #fff;
+  background: #f97316;
 }
 @media (hover: hover) and (pointer: fine) {
   .image-gallery-bullets .image-gallery-bullet:hover {

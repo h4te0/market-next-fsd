@@ -1,29 +1,27 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronRight } from 'lucide-react';
 
-import { cn } from '@/shared/lib/tailwind-merge';
+import { LogoutButton } from '@/features/update-user';
 
-import { LogoutConfirm } from './logout-confirm';
+import { cn } from '@/shared/lib/tailwind-merge';
 
 import { profileNavigation } from '../../config/profile-navigation';
 
-import type { Session } from 'next-auth';
+import type { User } from '@prisma/client';
 
 interface Props {
-  session: Session | null;
+  user: User | null;
+  className?: string;
 }
 
-export const ProfileNavMenu = ({ session }: Props) => {
-  const [logoutOpen, setLogoutOpen] = useState<boolean>(false);
-
+export const ProfileNavMenu = ({ user, className }: Props) => {
   const pathname = usePathname();
 
   return (
-    <nav>
+    <nav className={cn(className)}>
       <ul>
         {profileNavigation.map((item) => (
           <li
@@ -44,22 +42,9 @@ export const ProfileNavMenu = ({ session }: Props) => {
           </li>
         ))}
       </ul>
-      {session ? (
-        <li className="bg-white px-4 flex mt-2 rounded-b-2xl">
-          <button
-            onClick={() => setLogoutOpen(true)}
-            className="flex items-center text-sm leading-5 py-4 w-full text-destructive">
-            Выйти
-          </button>
-        </li>
-      ) : (
-        <li className="bg-white px-4 flex mt-2 rounded-b-2xl">
-          <p className="flex items-center text-sm leading-5 py-4 w-full text-secondary">
-            Авторизируйтесь
-          </p>
-        </li>
-      )}
-      <LogoutConfirm isOpen={logoutOpen} onClose={() => setLogoutOpen(false)} />
+      <li className="bg-white px-4 flex mt-2 rounded-b-2xl">
+        <LogoutButton user={user} />
+      </li>
     </nav>
   );
 };

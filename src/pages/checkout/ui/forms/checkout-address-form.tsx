@@ -1,5 +1,4 @@
 import { CheckoutBlock } from '../checkout-block';
-import { AddressInput } from '@/shared/ui/address-input';
 import {
   FormControl,
   FormField,
@@ -11,11 +10,14 @@ import {
 
 import type { Control } from 'react-hook-form';
 import type { TFormCheckoutValues } from '../../model/checkout-form-schema';
+import dynamic from 'next/dynamic';
 
 interface Props {
   classname?: string;
   control: Control<TFormCheckoutValues>;
 }
+
+const AddressInput = dynamic(() => import('@/shared/ui/address-input'), { ssr: false });
 
 export const CheckoutAddressForm = ({ classname, control }: Props) => {
   return (

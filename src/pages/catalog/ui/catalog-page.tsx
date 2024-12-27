@@ -1,13 +1,13 @@
+import { notFound } from 'next/navigation';
+
 import { getBrandsByCategory, getCurrentCategories } from '@/entities/category';
 import { getProductsCatalog } from '@/entities/product';
 
-import { Container } from '@/shared/ui/container';
-import { Filters } from '@/widgets/filters';
-import { ProductsList, ProductsPagination } from '@/widgets/catalog';
-
 import { formatBrandTitles, formatCatalogTitle } from '@/shared/lib/formatters';
+
+import { Container } from '@/shared/ui/container';
+import { Catalog } from '@/widgets/catalog';
 import { Breadcrumbs } from '@/widgets/breadcrumbs';
-import { notFound } from 'next/navigation';
 
 interface Props {
   params: Promise<{ slug: string[] }>;
@@ -32,28 +32,24 @@ export const CatalogPage = async ({ params, searchParams }: Props) => {
   });
 
   const selectedBrandsTitles = formatBrandTitles(brands);
-  console.log(currentCategories);
+
   if (!currentCategories) return notFound();
 
   return (
     <Container>
       <Breadcrumbs slug={currentCategorySlug} />
-      <div className="grid grid-cols-12 gap-4">
-        <Filters
-          classname="col-span-3"
-          {...{ ...filters, brands: currentBrandsInCategory, totalPages: pagination.totalPages }}
-        />
-        <div className="col-span-9">
-          <ProductsList
-            {...{
-              products,
-              total,
-              catalogTitle: formatCatalogTitle(currentCategories, selectedBrandsTitles),
-            }}
-          />
-          <ProductsPagination classname="my-4" {...pagination} />
-        </div>
-      </div>
+      <Catalog
+        productsListProps={{
+          products,
+          total,
+          catalogTitle: formatCatalogTitle(currentCategories, selectedBrandsTitles),
+        }}
+        filterProps={{
+          ...filters,
+          brands: currentBrandsInCategory,
+        }}
+        paginationProps={pagination}
+      />
     </Container>
   );
 };

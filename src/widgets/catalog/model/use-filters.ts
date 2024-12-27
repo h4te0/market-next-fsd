@@ -1,33 +1,11 @@
-'use client';
-
 import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next-nprogress-bar';
 import qs from 'qs';
 
-import { cn } from '@/shared/lib/tailwind-merge';
+import { useFiltersStore } from './filters-store';
 
-import { Accordion } from '@/shared/ui/accordion';
-
-import { PriceFilter } from './price-filter';
-import { BrandsFilter } from './brands-filter';
-import { DeliveryFilter } from './delivery-filter';
-
-import { useFiltersStore } from '../model/filters-store';
-
-import type { Brand } from '@prisma/client';
-
-interface Props {
-  classname?: string;
-  brands: Brand[];
-  maxPrice: number;
-  minPrice: number;
-  totalPages: number;
-}
-
-export const Filters = (props: Props) => {
-  const { classname, brands, maxPrice, minPrice, totalPages } = props;
-
+export const useFilters = (totalPages: number) => {
   const searchParams = useSearchParams();
   const { push } = useRouter();
 
@@ -39,10 +17,12 @@ export const Filters = (props: Props) => {
     const brands = searchParams?.get('brands')?.split(',') || [];
     const delivery = Boolean(searchParams?.get('delivery'));
     const page = searchParams?.get('page') || undefined;
+    const sorting = searchParams?.get('sorting') || undefined;
 
     filters.setPrices({ min: minPrice, max: maxPrice });
     filters.setBrands(brands);
     filters.setDelivery(delivery);
+    filters.setSorting(sorting);
 
     if (totalPages < Number(page)) {
       filters.setPage(undefined);
@@ -57,23 +37,9 @@ export const Filters = (props: Props) => {
       ...filters.prices,
       delivery: filters.delivery || undefined,
       brands: [...filters.brands],
+      sorting: filters.sorting,
     };
     const query = qs.stringify(filtersQuery, { arrayFormat: 'comma' });
     push(`?${query}`, { scroll: false });
   }, [filters]);
-
-  return (
-    <div className={cn('bg-white px-4 py-6 rounded-2xl h-fit', classname)}>
-      <Accordion type="multiple" defaultValue={['price', 'brands']}>
-        <PriceFilter
-          setPrices={filters.setPrices}
-          prices={filters.prices}
-          maxPrice={maxPrice}
-          minPrice={minPrice}
-        />
-        <BrandsFilter brands={brands} selected={filters.brands} setSelected={filters.setBrands} />
-        <DeliveryFilter isDelivery={filters.delivery} setIsDelivery={filters.setDelivery} />
-      </Accordion>
-    </div>
-  );
 };

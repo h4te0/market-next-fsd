@@ -14,12 +14,12 @@ interface Props {
 
 export const CartSummary = ({ totalAmount, quantity, isDisabled }: Props) => {
   return (
-    <div className="bg-white rounded-lg px-4 py-8 w-full max-w-[402px] h-fit">
-      <div className="flex justify-between pb-2 border-b">
-        <p className="font-bold">Сумма к оплате: </p>
+    <div className="bg-white rounded-lg px-4 py-8 max-w-[402px] laptop:max-w-full h-fit tablet:fixed tablet:bottom-16 tablet:left-0 tablet:w-full tablet:flex tablet:justify-between tablet:items-center tablet:border-t tablet:py-4">
+      <div className="flex justify-between pb-2 border-b tablet:border-none">
+        <p className="font-bold tablet:hidden">Сумма к оплате: </p>
         <p className="font-bold">{totalAmount.toLocaleString('ru')} ₸</p>
       </div>
-      <div className="flex justify-between mt-2 mb-8 text-[12px]">
+      <div className="flex justify-between mt-2 mb-8 text-[12px] tablet:hidden">
         <p>
           {getNounByCount(
             quantity,
@@ -36,7 +36,7 @@ export const CartSummary = ({ totalAmount, quantity, isDisabled }: Props) => {
           Оформить заказ
         </Button>
       </Link>
-      <p className="text-[12px] mt-2 leading-4">
+      <p className="text-[12px] mt-2 leading-4 tablet:hidden">
         Оформляя заказ, вы подтверждаете свое согласие с нашими условиями покупки в
         интернет-магазине
       </p>

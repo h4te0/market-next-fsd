@@ -21,6 +21,7 @@ import { formCheckoutSchema, TFormCheckoutValues } from '../model/checkout-form-
 
 import type { User } from '@prisma/client';
 import { useCreateOrder } from '@/features/create-order';
+import { useEffect } from 'react';
 
 interface Props {
   user: User | null;
@@ -47,13 +48,12 @@ export const Checkout = ({ user }: Props) => {
     createOrder(data);
   };
 
-  if (!data?.cart?.length) {
-    router.push(paths.cart);
-    toast.error('У вас нет товаров в корзине');
-    return;
-  }
-
-  if (typeof window === 'undefined') return;
+  useEffect(() => {
+    if (data?.cart.length == 0) {
+      router.push(paths.cart);
+      toast.error('У вас нет товаров в корзине');
+    }
+  }, [data]);
 
   return (
     <Container classname="pt-3">
@@ -62,8 +62,8 @@ export const Checkout = ({ user }: Props) => {
       </Title>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex gap-10">
-            <div className="flex flex-col gap-10 flex-1 mb-20">
+          <div className="flex gap-10 laptop:flex-col tablet:gap-4">
+            <div className="flex flex-col gap-10 flex-1 mb-10 laptop:mb-0 tablet:gap-4">
               <CheckoutCartItems cart={data?.cart} isLoading={isLoading} />
               <CheckoutPersonalForm
                 classname={isLoading ? 'opacity-40 pointer-events-none' : ''}
@@ -75,7 +75,7 @@ export const Checkout = ({ user }: Props) => {
                 control={form.control}
               />
             </div>
-            <div className="w-[450px]">
+            <div className="w-[450px] laptop:w-auto laptop:mb-10 tablet:mb-4">
               <CheckoutSidebar
                 totalAmount={data?.totalSum}
                 quantity={data?.totalCount}

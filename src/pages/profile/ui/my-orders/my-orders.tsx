@@ -1,24 +1,14 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-
-import { formatDate } from '@/shared/lib/formatters/format-date';
 
 import { useOrders } from '@/entities/order';
 
 import { OrdersEmpty } from './orders-empty';
-import { OrderStatus } from './order-status';
 import { Skeleton } from '@/shared/ui/skeleton';
 import { Title } from '@/shared/ui/title';
 
-import type { ICartItemWithProduct } from '@/entities/cart';
-
-const dateOptions: Intl.DateTimeFormatOptions = {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-};
+import { OrderItem } from './order-item';
 
 export const MyOrders = () => {
   const { data: orders, isLoading } = useOrders();
@@ -29,7 +19,7 @@ export const MyOrders = () => {
       <hr />
       <div className="max-h-[620px] overflow-y-auto">
         <table className="w-full">
-          <tbody>
+          <tbody className="flex flex-col gap-2 h-4/5 overflow-y-auto">
             <tr className="flex items-center my-2">
               <th className="basis-1/6 text-xs text-gray-400">Номер заказа</th>
               <th className="basis-2/6 text-xs text-gray-400">Товары</th>
@@ -48,41 +38,7 @@ export const MyOrders = () => {
               ))
             ) : orders?.length ? (
               orders?.map((order) => (
-                <React.Fragment key={order.id}>
-                  <tr className="flex items-center my-2">
-                    <td className="basis-1/5 text-sm ">
-                      <p className="font-bold">Заказ №{order.id}</p>
-                      <p className="text-xs text-gray-400">
-                        {formatDate(order.createdAt, dateOptions)}
-                      </p>
-                    </td>
-                    <td className="basis-2/5 text-sm">
-                      <div className="grid grid-cols-4 grid-rows gap-y-2">
-                        {JSON.parse(String(order.items)).map((item: ICartItemWithProduct) => (
-                          <div
-                            className="flex items-center justify-center w-12 h-12 border rounded"
-                            key={item.id}>
-                            <Image
-                              src={item.product.images[0] || '/product-placeholder.webp'}
-                              alt="order item"
-                              width={40}
-                              height={40}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </td>
-                    <td className="basis-1/5 text-sm font-bold">
-                      {order.totalAmount.toLocaleString('ru')} ₸
-                    </td>
-                    <td className="basis-1/5 text-sm">x{JSON.parse(String(order.items)).length}</td>
-
-                    <td className="basis-1/5 text-sm pr-2">
-                      <OrderStatus status={order.status} />
-                    </td>
-                  </tr>
-                  <tr className="border-b" />
-                </React.Fragment>
+                <OrderItem key={order.id} order={order} className="border-none border-b" />
               ))
             ) : (
               <OrdersEmpty />

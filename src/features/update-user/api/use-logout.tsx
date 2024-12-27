@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next-nprogress-bar';
 import { signOut } from 'next-auth/react';
 import { deleteCookie } from 'cookies-next';
-
 import { LogOut } from 'lucide-react';
 
 export const useLogout = (onClose?: () => void) => {

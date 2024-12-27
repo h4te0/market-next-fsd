@@ -3,16 +3,25 @@
 import { useState } from 'react';
 import { TextSearch, X } from 'lucide-react';
 
+import { cn } from '@/shared/lib/tailwind-merge';
+
 import { CategoriesMenu } from '@/widgets/categories-menu';
 import { Button } from '@/shared/ui/button';
 
-export const HeaderCatalogButton = () => {
+interface Props {
+  className?: string;
+}
+
+export const HeaderCatalogButton = ({ className }: Props) => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
 
   if (isCatalogOpen) {
     return (
       <>
-        <Button variant="destructive" className="mr-5" onClick={() => setIsCatalogOpen(false)}>
+        <Button
+          variant="destructive"
+          className={cn('mr-5', className)}
+          onClick={() => setIsCatalogOpen(false)}>
           <X />
           <p className="ml-3 font-bold">Каталог</p>
         </Button>
@@ -21,7 +30,7 @@ export const HeaderCatalogButton = () => {
     );
   } else {
     return (
-      <Button className="mr-5" onClick={() => setIsCatalogOpen(true)}>
+      <Button className={cn('mr-5', className)} onClick={() => setIsCatalogOpen(true)}>
         <TextSearch />
         <p className="ml-3 font-bold">Каталог</p>
       </Button>

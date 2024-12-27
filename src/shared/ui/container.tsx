@@ -12,7 +12,7 @@ export const Container = ({ classname, ref, children }: Props) => {
     <div
       ref={ref}
       className={cn(
-        'mx-auto max-w-[1232px] xl:max-w-[calc(100vw-32px)] phone:px-[12px]',
+        'mx-auto max-w-[1232px] laptop:max-w-[calc(100vw-32px)] phone:max-w-[calc(100vw-24px)]',
         classname,
       )}>
       {children}

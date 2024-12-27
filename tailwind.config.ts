@@ -10,8 +10,9 @@ export default {
   ],
   theme: {
     screens: {
-      phone: { max: '767px' },
-      xl: { max: '1280px', min: '768px' },
+      laptop: { max: '1280px' },
+      tablet: { max: '768px' },
+      phone: { max: '480px' },
     },
     extend: {
       colors: {

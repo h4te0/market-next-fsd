@@ -20,7 +20,7 @@ import {
 } from '@/shared/ui/form';
 import { Title } from '@/shared/ui/title';
 import { PhoneInput } from '@/shared/ui/phone-input';
-import { AddressInput } from '@/shared/ui/address-input';
+import AddressInput from '@/shared/ui/address-input';
 
 import { profileFormSchema, TFormProfileValues } from '@/features/update-user';
 
@@ -59,7 +59,7 @@ export const UserEditForm = ({ data, onEditClose }: Props) => {
       <button className="text-secondary flex gap-2 mb-2" onClick={onEditClose}>
         <ArrowLeft /> Назад
       </button>
-      <div className="flex justify-between gap-12">
+      <div className="flex tablet:flex-col justify-between gap-12">
         <Form {...form}>
           <form className="flex flex-col gap-5 w-full" onSubmit={form.handleSubmit(onSubmit)}>
             <Title>Персональные данные</Title>

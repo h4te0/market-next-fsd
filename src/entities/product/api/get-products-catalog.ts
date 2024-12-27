@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import qs from 'qs';
 
 import { prisma } from '@/shared/api';
 import { getCurrentUser } from '@/entities/user';
@@ -12,7 +13,7 @@ interface Props {
 
 export const getProductsCatalog = async ({ slug, take = 8, skip = 0, searchParams }: Props) => {
   const cookieStore = await cookies();
-  const { min, max, brands, delivery } = await searchParams;
+  const { min, max, brands, delivery, sorting } = await searchParams;
 
   const {
     _min: { price: minPrice },
@@ -36,6 +37,7 @@ export const getProductsCatalog = async ({ slug, take = 8, skip = 0, searchParam
     maxPrice: Number(max) || maxPrice || 1000000,
     brands: brands?.split(','),
     isDelivery: Boolean(delivery) || undefined,
+    sorting: qs.parse(sorting || 'title=asc'),
   };
 
   const totalCount = await prisma.product.count({
@@ -62,7 +64,7 @@ export const getProductsCatalog = async ({ slug, take = 8, skip = 0, searchParam
   const res = await prisma.product.findMany({
     take,
     skip,
-    orderBy: { title: 'asc' },
+    orderBy: filters.sorting,
 
     include: {
       categories: true,

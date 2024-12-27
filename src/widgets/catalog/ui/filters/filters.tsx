@@ -1,10 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next-nprogress-bar';
-import qs from 'qs';
-
 import { cn } from '@/shared/lib/tailwind-merge';
 import { useFiltersStore } from '../../model/filters-store';
 

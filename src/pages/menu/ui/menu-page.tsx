@@ -1,5 +1,5 @@
 'use client';
-import { RootCategoryItem, useCategories } from '@/entities/category';
+import { useCategories } from '@/entities/category';
 import { paths } from '@/shared/config/paths';
 import { Container } from '@/shared/ui/container';
 import { Skeleton } from '@/shared/ui/skeleton';
@@ -7,9 +7,7 @@ import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface Props {}
-
-export const MenuPage = ({}: Props) => {
+export const MenuPage = () => {
   const { data: categories, isLoading } = useCategories();
 
   if (isLoading)

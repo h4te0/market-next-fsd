@@ -2,15 +2,19 @@ import { prisma } from '@/shared/api';
 
 import { CategoryPage } from '@/pages/menu';
 
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: '',
-};
-
 interface Props {
   params: Promise<{ slug: string }>;
 }
+
+export const generateMetadata = async ({ params }: Props) => {
+  const { slug } = await params;
+
+  const category = await prisma.category.findFirst({ where: { slug } });
+
+  return {
+    title: category?.title,
+  };
+};
 
 const Category = async ({ params }: Props) => {
   const { slug } = await params;

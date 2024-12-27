@@ -1,31 +1,19 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Package } from 'lucide-react';
 
 import { useOrders } from '@/entities/order';
-import { formatDate } from '@/shared/lib/formatters/format-date';
 import { cn } from '@/shared/lib/tailwind-merge';
+import { getNounByCount } from '@/shared/lib/get-noun-by-numb';
 
 import { MyOrdersEmpty } from './my-orders-empty';
-import { OrderStatus } from '../../my-orders/order-status';
+import { OrderItem } from '../../my-orders/order-item';
 import { Spinner } from '@/shared/ui/spinner';
 
 import { paths } from '@/shared/config/paths';
 
-import type { ICartItemWithProduct } from '@/entities/cart';
-import { getNounByCount } from '@/shared/lib/get-noun-by-numb';
-import { OrderItem } from '../../my-orders/order-item';
-
 interface Props {
   className?: string;
 }
-
-const dateOptions: Intl.DateTimeFormatOptions = {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-};
-
 export const MyOrdersBlock = ({ className }: Props) => {
   const { data: orders, isLoading } = useOrders();
 

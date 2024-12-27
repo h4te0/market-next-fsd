@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     serverActions: {
-      allowedOrigins: ['localhost:3000', 'https://5l1c57hd-3000.euw.devtunnels.ms/'],
+      allowedOrigins: ['localhost:3000', 'https://www.market-next.shop/'],
     },
   },
   reactStrictMode: false,

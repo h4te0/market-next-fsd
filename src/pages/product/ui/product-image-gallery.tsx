@@ -12,13 +12,13 @@ interface Props {
 }
 
 export const ProductImageGallery = ({ product }: Props) => {
-  if (!product) return;
-
   const [windowWidth, setWindowWidth] = useState<number>(1920);
 
   useEffect(() => {
     if (typeof window !== 'undefined') setWindowWidth(window.innerWidth);
   }, []);
+
+  if (!product) return;
 
   const images: ReactImageGalleryItem[] = product?.images.map((image) => ({
     original: image,

@@ -1,11 +1,9 @@
-import Link from 'next/link';
-import { MapPin, Phone } from 'lucide-react';
+import { Phone } from 'lucide-react';
 
 import { cn } from '@/shared/lib/tailwind-merge';
 
 import { Container } from '@/shared/ui/container';
 
-import { paths } from '@/shared/config/paths';
 import { Logo } from '@/shared/ui/logo';
 import { CurrentCity } from '@/shared/ui/current-city';
 

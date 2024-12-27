@@ -59,7 +59,7 @@ export const Favorites = ({ isOverview, className }: Props) => {
       <div className={cn('bg-white rounded-lg p-6 min-h-full flex flex-col relative', className)}>
         <FavoritesTitle isOverview={isOverview} />
         <hr className="tablet:hidden" />
-        <FavoritesEmpty className={isOverview ? 'h-[340px]' : ''} />
+        <FavoritesEmpty className={isOverview ? 'h-[340px] tablet:h-auto' : ''} />
       </div>
     );
   }

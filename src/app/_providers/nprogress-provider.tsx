@@ -11,7 +11,7 @@ export const NprogressProvider = ({ children }: { children: React.ReactNode }) =
         color="#F97316"
         // disableSameURL={false}
         options={{ showSpinner: false }}
-        shallowRouting
+        // shallowRouting
       />
     </>
   );

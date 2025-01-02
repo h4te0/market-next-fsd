@@ -12,6 +12,8 @@ import { Title } from '@/shared/ui/title';
 import { Button } from '@/shared/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/ui/select';
 
+import { sortingParams } from '@/shared/config/sorting-params';
+
 import type { IProductWithCartAndFav } from '@/entities/product';
 
 interface Props {
@@ -25,21 +27,6 @@ interface Props {
     state: boolean;
   };
 }
-
-const sorting = [
-  {
-    title: 'По алфавиту',
-    value: { title: 'asc' },
-  },
-  {
-    title: 'По возрастанию цены',
-    value: { price: 'asc' },
-  },
-  {
-    title: 'По убыванию цены',
-    value: { price: 'desc' },
-  },
-];
 
 export const ProductsList = ({
   classname,
@@ -73,10 +60,16 @@ export const ProductsList = ({
             <Select onValueChange={(sort) => filters.setSorting(sort)}>
               <SelectTrigger className="border bg-white p-2 gap-2 phone:text-xs">
                 <ArrowDownUp strokeWidth={1} />
-                <SelectValue placeholder={searchParams?.get('sorting') || 'По алфавиту'} />
+                <SelectValue
+                  placeholder={
+                    sortingParams.find(
+                      (item) => qs.stringify(item.value) === searchParams?.get('sorting'),
+                    )?.title || 'По алфавиту'
+                  }
+                />
               </SelectTrigger>
               <SelectContent>
-                {sorting.map((item, i) => (
+                {sortingParams.map((item, i) => (
                   <SelectItem key={i} className="phone:text-xs" value={qs.stringify(item.value)}>
                     {item.title}
                   </SelectItem>

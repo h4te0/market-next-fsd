@@ -18,11 +18,7 @@ export const MyOrdersBlock = ({ className }: Props) => {
   const { data: orders, isLoading } = useOrders();
 
   return (
-    <div
-      className={cn(
-        'bg-white p-6 w-full rounded-lg max-h-[272px] flex flex-col relative',
-        className,
-      )}>
+    <div className={cn('bg-white p-6 w-full rounded-lg flex flex-col relative', className)}>
       <div className="flex justify-between items-center mb-4">
         <h2 className="flex items-center gap-2 text-lg font-bold phone:text-sm">
           <Package color="#f97316" />
@@ -39,8 +35,8 @@ export const MyOrdersBlock = ({ className }: Props) => {
         <Spinner containerClassName="h-4/5" />
       ) : orders?.length ? (
         <>
-          <table>
-            <tbody className="tablet:hidden flex flex-col gap-2 h-4/5 overflow-y-auto">
+          <table className="h-full laptop:min-h-[300px] tablet:min-h-max">
+            <tbody className="tablet:hidden flex flex-col gap-2 h-full overflow-y-auto">
               {orders?.map((order) => (
                 <OrderItem key={order.id} order={order} />
               ))}

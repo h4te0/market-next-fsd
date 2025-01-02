@@ -3,7 +3,7 @@ import validator from 'validator';
 
 export const passwordSchema = z
   .string({ message: 'Поле не должно быть пустым' })
-  .min(1, { message: 'Пароль должен содержать не менее 8 символов' });
+  .min(8, { message: 'Пароль должен содержать не менее 8 символов' });
 
 export const profileFormSchema = z.object({
   email: z
@@ -40,7 +40,7 @@ export const changePasswordSchema = confirmPasswordSchema
   .extend({
     oldPassword: z
       .string({ message: 'Поле не должно быть пустым' })
-      .min(1, { message: 'Поле не должно быть пустым' }),
+      .min(8, { message: 'Пароль должен содержать не менее 8 символов' }),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: 'Пароли не совпадают',

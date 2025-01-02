@@ -3,6 +3,7 @@ import qs from 'qs';
 
 import { prisma } from '@/shared/api';
 import { getCurrentUser } from '@/entities/user';
+import { sortingParams } from '@/shared/config/sorting-params';
 
 interface Props {
   slug: string | undefined;
@@ -32,12 +33,16 @@ export const getProductsCatalog = async ({ slug, take = 8, skip = 0, searchParam
     },
   });
 
+  const sortingValid = qs.stringify(
+    sortingParams.find((item) => qs.stringify(item.value) === sorting)?.value,
+  );
+
   const filters = {
     minPrice: Number(min) || minPrice || 0,
     maxPrice: Number(max) || maxPrice || 1000000,
     brands: brands?.split(','),
     isDelivery: Boolean(delivery) || undefined,
-    sorting: qs.parse(sorting || 'title=asc'),
+    sorting: qs.parse(sortingValid || 'title=asc'),
   };
 
   const totalCount = await prisma.product.count({

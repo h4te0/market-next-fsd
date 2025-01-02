@@ -22,7 +22,7 @@ export const useUpdateUserPassword = (
       reset();
     },
     onError: (error) => {
-      toast.error('Ошибка обновления пароля');
+      toast.error(error.message);
       console.error(error);
     },
   });

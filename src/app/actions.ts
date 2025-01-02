@@ -20,6 +20,10 @@ export const createOrderAction = async (body: TFormCheckoutValues) => {
     const cookieStore = await cookies();
     const cartToken = cookieStore.get('cartToken')?.value;
 
+    if (!cartToken) {
+      throw new Error('Корзина не найдена');
+    }
+
     const userCart = await prisma.cart.findMany({
       where: { token: cartToken },
       include: {
@@ -32,14 +36,11 @@ export const createOrderAction = async (body: TFormCheckoutValues) => {
       },
     });
 
-    const totalSum =
-      userCart.length &&
-      userCart
-        .map((item) => item.product.price * item.quantity)
-        .reduce((acc, price) => acc + price);
+    const totalSum = userCart.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
-    if (!cartToken || !userCart) throw Error('Корзина не найдена');
-    if (totalSum === 0) throw Error('Корзина пустая');
+    if (!userCart.length || !totalSum) {
+      throw new Error('Корзина пуста');
+    }
 
     if (userCart[0].userId) {
       await prisma.user.update({
@@ -54,7 +55,6 @@ export const createOrderAction = async (body: TFormCheckoutValues) => {
     }
 
     const hasDelivery = totalSum < 10000;
-
     const totalAmountWithDelivery = hasDelivery ? totalSum + 1000 : totalSum;
 
     const order = await prisma.order.create({
@@ -83,7 +83,9 @@ export const createOrderAction = async (body: TFormCheckoutValues) => {
       hasDelivery,
     });
 
-    if (!paymentData.url) throw Error('Ошибка создания заказа');
+    if (!paymentData.url) {
+      throw new Error('Ошибка создания заказа');
+    }
 
     await prisma.order.update({
       where: {
@@ -104,6 +106,7 @@ export const createOrderAction = async (body: TFormCheckoutValues) => {
         paymentUrl: paymentData.url,
       }),
     );
+
     return paymentData.url;
   } catch (error) {
     console.error('Error [CREATE_ORDER]', error);
@@ -119,7 +122,9 @@ export const registerUserAction = async (body: Prisma.UserCreateInput) => {
       },
     });
 
-    if (user) throw new Error('Пользователь уже существует');
+    if (user) {
+      throw new Error('Пользователь уже существует');
+    }
 
     const code = Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -191,18 +196,14 @@ export const updateUserPasswordAction = async (body: TFormPasswordChangeValues) 
       },
     });
 
+    if (!findUser) {
+      throw new Error('Пользователь не существует');
+    }
+
     if (body.oldPassword) {
-      const isPasswordValid = await compare(String(body.oldPassword), findUser?.password || '');
-      if (isPasswordValid) {
-        await prisma.user.update({
-          where: {
-            id: Number(currentUser.id),
-          },
-          data: {
-            password: hashSync(body.newPassword as string, 10),
-          },
-        });
-      } else {
+      const isPasswordValid = await compare(body.oldPassword, findUser.password || '');
+
+      if (!isPasswordValid) {
         throw new Error('Неверный текущий пароль');
       }
     }

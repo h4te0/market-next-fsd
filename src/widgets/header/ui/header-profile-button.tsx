@@ -22,7 +22,9 @@ export const HeaderProfileButton = ({ user, onClickSignIn, className }: Props) =
         className,
       )}>
       <LucideUser />
-      <span className="whitespace-nowrap">{user.fullName || 'Профиль'}</span>
+      <span className="whitespace-nowrap overflow-hidden max-w-full text-ellipsis">
+        {user.fullName || 'Профиль'}
+      </span>
     </Link>
   ) : (
     <div
